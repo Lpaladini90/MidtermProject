@@ -3,16 +3,11 @@ package com.skilldistillery.betroyaleapp.data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
 
 import com.skilldistillery.betroyaleapp.entities.BettableEvent;
 import com.skilldistillery.betroyaleapp.entities.Category;
@@ -21,39 +16,34 @@ import com.skilldistillery.betroyaleapp.entities.Subcategory;
 import com.skilldistillery.betroyaleapp.entities.User;
 import com.skilldistillery.betroyaleapp.entities.Wager;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
-
 public class UserDaoImpl implements UserDAO {
-
-	private Map<Integer, User> users;
-
-	public static void main(String[] args) {
-		UserDaoImpl dao = new UserDaoImpl();
-		User user = dao.findById(1);
-		System.out.println(user);
-	}
 
 	@PersistenceContext
 	private EntityManager em;
 
-	@Transactional
 	@Override
+	@Transactional(readOnly = true)
 	public User findById(int userId) {
 		return em.find(User.class, userId);
 	}
 
-	@Transactional
+	
 	@Override
+	@Transactional(readOnly = true)
 	public User searchByUsername(String username) {
-		User user = null;
 
-		String jpql = "SELECT u FROM User u where u.username = :username";
 		try {
-			user = em.createQuery(jpql, User.class).setParameter("username", username).getSingleResult();
-
+			String jpql = "SELECT u FROM User u where u.username = :username";
+			User user = em.createQuery(jpql, User.class).setParameter("username", username).getSingleResult();
+			return user;
 		} catch (Exception e) {
+			return null;
 		}
-		return user;
+		
 	}
 
 	@Transactional
@@ -67,8 +57,8 @@ public class UserDaoImpl implements UserDAO {
 	@Transactional
 	@Override
 	public User updateUser(User user) {
-		em.find(User.class, user.getId());
 		User updatedUser = findById(user.getId());
+		updatedUser.setUsername(user.getUsername());
 		updatedUser.setFirstName(user.getFirstName());
 		updatedUser.setLastName(user.getLastName());
 		updatedUser.setPassword(user.getPassword());
@@ -77,9 +67,6 @@ public class UserDaoImpl implements UserDAO {
 		updatedUser.setRole(user.getRole());
 		updatedUser.setProfileImage(user.getProfileImage());
 		updatedUser.setAboutMe(user.getAboutMe());
-
-		em.persist(updatedUser);
-		em.flush();
 		return updatedUser;
 	}
 
@@ -200,14 +187,13 @@ public class UserDaoImpl implements UserDAO {
 		double count = 0;
 		double total = 0;
 		for (Wager wager : wagers) {
-			double odds = wager.getContender().getOdds();
 			if (wager.getContender().isWinner()) {
+				double odds = wager.getContender().getOdds();
 				double winnings = (1 / (odds / 100));
 				count++;
 				total += winnings;
 			}
 		}
-		// CalculatedWinnings winnings = new CalculatedWinnings(wager., count, total);
 
 		return null;
 	}
@@ -259,7 +245,6 @@ public class UserDaoImpl implements UserDAO {
 
 	@Override
 	public Contender findContenderById(int contenderId) {
-		
 		return em.find(Contender.class, contenderId);
 	}
 
@@ -286,8 +271,6 @@ public class UserDaoImpl implements UserDAO {
 			
 			if(!map.containsKey(userId)) {
 				User user = em.find(User.class, userId);
-				user.setId(userId);
-				System.out.println("****" + user);
 				map.put(userId, new CalculatedWinnings(user, 0, 0));
 			}
 			
@@ -297,12 +280,9 @@ public class UserDaoImpl implements UserDAO {
 				map.get(userId).setTotal(map.get(userId).getTotal() + payout + amount);	
 			}
 			else {
-				
 				map.get(userId).setCount(map.get(userId).getCount() - 1);				
 				map.get(userId).setTotal(map.get(userId).getTotal() - amount);
 			}	
-			
-			
 		}
 		
 		List<CalculatedWinnings> finalResults = new ArrayList<>(map.values());
@@ -313,16 +293,9 @@ public class UserDaoImpl implements UserDAO {
 			else 
 				return (int)b.getCount() - (int)a.getCount();
 		});
-		//finalResults.forEach(System.out::println);
 		
 		return finalResults;
 	}
-	
-
-
-	// comments as lines
-
-
 }
 
 

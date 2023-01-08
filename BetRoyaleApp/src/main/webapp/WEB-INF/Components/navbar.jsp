@@ -12,7 +12,7 @@
 
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+            <ul class="navbar-nav ms-auto mx-3 mt-2 mt-lg-0">
                 <li class="nav-item active"><a class="nav-link" href="goHome.do">Home
                         <span class="sr-only">(current)</span>
                     </a></li>
@@ -31,11 +31,7 @@
                 
                 </c:if>
               
-                <li class="nav-item"> <form class="form-inline my-2 my-lg-0" action="search.do" method="GET">
-                        <input class="form-control mr-sm-2" type="search" name="username" placeholder="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </li>
+
             </ul>
         </div>
     </nav>
@@ -49,6 +45,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                    	<div class="display-5">Login</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">×</span></button>
                     </div>
@@ -63,30 +60,24 @@
                                 <input type="password" class="form-control-form " id="password" name="password"
                                     placeholder="Enter Your Password">
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Remember me
-                                        </label>
-                                    </div>
-                                </div>
+
+                            <button type="submit" class="btn-lgin">Login</button>
+                                                        <div class="row">
+  
                                 <div class="col-md-4 col-md-offset-2">
-                                    <p class="frgt-pswd" data-toggle="modal" data-dismiss="modal"
+                                    <p class="" data-toggle="modal" data-dismiss="modal"
                                         data-target="#at-reset-pswd"> Forgot Password</p>
                                 </div>
                             </div>
-                            <button type="submit" class="btn-lgin">Login</button>
+                            
+                            
                         </form>
                     </div>
                     <div class="modal-footer">
                         <div class="row">
-                            <div class="col-md-6">
-                                <p class="inline-block">New User? </p>
-                            </div>
                             <div class="col-md-4 col-md-offset-2">
-                                <button class="btn-gst" data-toggle="modal" data-dismiss="modal"
-                                    data-target="#at-signup">Sign Up </button>
+                                <button class="btn btn-outline-primary" data-toggle="modal" data-dismiss="modal"
+                                    data-target="#at-signup-filling">Sign Up </button>
                             </div>
                         </div>
                     </div>
@@ -96,45 +87,13 @@
 
         <!-- MODAL LOGIN ENDS -->
 
-        
-
-        <!-- MODAL SIGNUP -->
-        <div class="modal fade" id="at-signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <button type="submit" class="btn-lgin" data-toggle="modal" data-dismiss="modal"
-                            data-target="#at-signup-filling">Signup with Email</button>
-                        <hr>
-                        <p>By signing up, I agree to BetRoyale's: Payments <a href="#">Terms of Service</a>, <a
-                                href="#">Privacy Policy</a>, <a href="#">Refund Policy</a>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="ta-l">Already a Member? </p>
-                            </div>
-                            <div class="col-md-4 col-md-offset-2">
-                                <button class="btn-gst btn btn-primary" data-toggle="modal" data-dismiss="modal"
-                                    data-target="#at-login">Login</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <!-- MODAL SIGNUP FORM FILLING -->
         <div class="modal fade" id="at-signup-filling" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+                    	<div class="display-5">Sign up</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">×</span></button>
                     </div>
@@ -172,9 +131,6 @@
                                         </label>
                                     </div>
 
-                                    <p>By signing up, I agree to Bet Royale's , Payments <a href="#">Terms of Service</a>,
-                                        <a href="#">Privacy Policy</a>, <a href="#">Guest Refund Policy</a>, and <a
-                                            href="#">Host Guarantee Terms</a>. </p>
                                 </div>
                             </div>
                             <button type="submit" class="btn-lgin">Signup</button>

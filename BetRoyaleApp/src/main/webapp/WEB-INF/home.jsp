@@ -11,41 +11,41 @@
 <style type="css/home.css"></style>
 <link>
 
-	
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 </head>
 <style>
-.container-fluid{
-background-color: black;
+.container-fluid {
+	background-color: white;
 }
 
-h4{
-font: black;}
-
+h4 {
+	font: black;
+}
 </style>
 <body class="container-fluid">
-	<jsp:include page="Components/navbar.jsp"/>
-	<!-- CSS only -->
-	
-<br>
-<br>
-<br>
-	
+	<jsp:include page="Components/navbar.jsp" />
+	<br>
+	<br>
+	<br>
+
 	<div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-   
-    
-	
-	
-	<div id="SummitCarousel" class="carousel slide"
+		<div class="col-2"></div>
+		<div class="col-8">
+
+
+
+
+			<div id="SummitCarousel" class="carousel slide"
 				data-ride="carousel mb-5">
 				<ol class="carousel-indicators">
 					<li data-target="#SummitCarousel" data-slide-to="0" class="active"></li>
 					<li data-target="#SummitCarousel" data-slide-to="1"></li>
 					<li data-target="#SummitCarousel" data-slide-to="2"></li>
-					<li data-target="#SummitCarousel" data-slide-to="3"></li>
-
 				</ol>
 
 				<div class="carousel-inner">
@@ -53,12 +53,14 @@ font: black;}
 					<div class="carousel-item active">
 						<div class="d-flex justify-content-center w-200 h-100">
 							<img class="d-block w-100"
-								src="https://metro.co.uk/wp-content/uploads/2021/03/33991068278_50049c5752_k-0717.jpg?quality=90&strip=all&zoom=1&resize=480%2C319"
+								src="https://cdn.stayhappening.com/events9/banners/ce3719077a3fa0cc8ffef857727c14ad64e36f366845cfe32575a3252eb98266-rimg-w960-h503-gmir.jpg?v=1651018260"
 								alt="First slide">
 						</div>
-						<div class="carousel-caption d-none d-md-block">
-						
-					</div>
+												<div class="carousel-caption d-none d-md-block">
+							<h4 font="font-">UFC Bout 274</h4>
+							<p>Oliveira vs Gaethje</p>
+						</div>
+						<div class="carousel-caption d-none d-md-block"></div>
 					</div>
 					<div class="carousel-item">
 						<div class="d-flex justify-content-center w-200 h-100">
@@ -67,9 +69,9 @@ font: black;}
 								alt="Second slide">
 						</div>
 						<div class="carousel-caption d-none d-md-block">
-						<h4>Instructor Bout 32</h4>
-					<p>Rob vs Dee</p>
-					</div>
+							<h4>Instructor Bout 32</h4>
+							<p>Rob vs Dee</p>
+						</div>
 					</div>
 					<div class="carousel-item">
 						<div class="d-flex justify-content-center w-200 h-100">
@@ -77,9 +79,7 @@ font: black;}
 								src="https://visitowa.com/wp-content/uploads/2022/03/Mario-Kart-Saturdays-Website-Metadata-01-1024x533.jpg"
 								alt="Third slide">
 						</div>
-						<div class="carousel-caption d-none d-md-block">
-						
-					</div>
+						<div class="carousel-caption d-none d-md-block"></div>
 					</div>
 					<div class="carousel-item">
 						<div class="d-flex justify-content-center w-200 h-200">
@@ -88,9 +88,9 @@ font: black;}
 								alt="Fourth slide">
 						</div>
 						<div class="carousel-caption d-none d-md-block">
-						<h4 font="font-" >UFC Bout 274</h4>
-					<p>Oliveira vs Gaethje</p>
-					</div>
+							<h4 font="font-">UFC Bout 274</h4>
+							<p>Oliveira vs Gaethje</p>
+						</div>
 					</div>
 					<div class="d-flex justify-content-center w-100 h-100">
 						<a class="carousel-control-prev" href="#SummitCarousel"
@@ -100,8 +100,8 @@ font: black;}
 					</div>
 				</div>
 			</div>
-	
-	
+
+
 
 
 			<section class="bg-dark text-light text-center">
@@ -158,78 +158,11 @@ font: black;}
 				</div>
 			</section>
 
-			<!-- New Letter Section -->
-
-			<section class="bg-primary text-light p-5">
-				<div class="container">
-					<div class="d-md-flex justify-content-between align-items-center">
-						<h3 class="mb-3 mb-md-0 text-dark" >Sign Up For Our Newsletter</h3>
-
-						<div class="input-group col-5">
-							<input type="text" class="form-control"
-								placeholder="Enter Your Email">
-							<button class="btn btn-primary btn-md" type="button"
-								id="button-addon2">Button</button>
-						</div>
-					</div>
-				</div>
-			</section>
-			
-			<!-- Boxes -->
-			
-			<!-- <section class="p-5">
-				<div class="container">
-					<div class="row text-center g-4">
-
-						<div class="col-md">
-							<div class="card bg-dark text-light">
-								<div class="card-body text-center">
-									<div class="h1 mb-3 mt-3">
-										<i class="bi bi-laptop"></i>
-									</div>
-									<h3 class="card-title mb-3">virtual</h3>
-									<p class="card-text"></p>
-									<a href="#" class="btn btn-primary mb-0">Read More</a>
-									<div class="h3"></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md">
-							<div class="card bg-secondary text-light">
-								<div class="card-body text-center">
-									<div class="h1 mb-3 mt-3">
-										<i class="bi bi-person-square"></i>
-									</div>
-									<h3 class="card-title mb-3">virtual</h3>
-									<p class="card-text"></p>
-									<a href="#" class="btn btn-dark mb-0">Read More</a>
-									<div class="h3"></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md">
-							<div class="card bg-dark text-light">
-								<div class="card-body text-center">
-									<div class="h1 mb-3 mt-3">
-										<i class="bi bi-people"></i>
-									</div>
-									<h3 class="card-title mb-3">test</h3>
-									<p class="card-text"></p>
-									<a href="#" class="btn btn-primary mb">Read More</a>
-									<div class="h3"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section> -->
 			<!-- Video section -->
-
-
 			<div class="container">
 				<div class="row align-items-center justify-content-center">
-					<div class="col-md-4 p-5">
-						<iframe class="img-fluid" width="350" height="300"
+					<div class="p-5">
+						<iframe class="img-fluid" width="100%" height="100%"
 							src="https://www.youtube.com/embed/N19jSX0ZnMU"
 							title="YouTube video player" frameborder="0"
 							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -237,7 +170,7 @@ font: black;}
 					</div>
 				</div>
 			</div>
-		
+
 
 
 
@@ -245,7 +178,7 @@ font: black;}
 
 			<!-- Question accordion -->
 
-		<section id="#" class="bg-dark text-dark">
+			<section id="#" class="bg-dark text-dark">
 				<div class="container">
 					<h2 class="text-center mb-4">Frequently Asked Questions</h2>
 
@@ -270,17 +203,17 @@ font: black;}
 							<h2 class="accordion-header" id="flush-headingTwo">
 								<button class="accordion-button collapsed" type="button"
 									data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo">
-									How do I create an event to bet on?></button>
+									How do I create an event to bet on?</button>
 							</h2>
 							<div id="flush-collapseTwo" class="accordion-collapse collapse"
 								aria-labelledby="flush-headingTwo"
 								data-bs-parent="#accordionFlushExample">
-								<div class="accordion-body">
-									Login or create a new user. Head to your profile page and look for the tab
-									under your avatar that allows you to create a betting event. From there you can 
-									input the event details and the contenders that will be participating, and set their
-									odds for others to wager their bets.
-								</div>
+								<div class="accordion-body">Login or create a new user.
+									Head to your profile page and look for the tab under your
+									avatar that allows you to create a betting event. From there
+									you can input the event details and the contenders that will be
+									participating, and set their odds for others to wager their
+									bets.</div>
 							</div>
 							<!-- item 3 -->
 						</div>
@@ -294,11 +227,11 @@ font: black;}
 							<div id="flush-collapseThree" class="accordion-collapse collapse"
 								aria-labelledby="flush-headingThree"
 								data-bs-parent="#accordionFlushExample">
-								<div class="accordion-body">
-									Our site was designed for you or any user to have the ability to create an event
-									about any type of subject matter. From there you can place as many wagers as you like up 
-									until the starting date and time of the event. Have fun!
-								</div>
+								<div class="accordion-body">Our site was designed for you
+									or any user to have the ability to create an event about any
+									type of subject matter. From there you can place as many wagers
+									as you like up until the starting date and time of the event.
+									Have fun!</div>
 							</div>
 						</div>
 					</div>
@@ -306,18 +239,27 @@ font: black;}
 
 			</section>
 
-			
+
 		</div>
 
-	 <div class="col-2"></div>
-	 </div>
-<jsp:include page="Components/footer.jsp" />
-<jsp:include page="bootstrapfoot.jsp" />
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+		<div class="col-2"></div>
+	</div>
+	<%-- <jsp:include page="Components/footer.jsp" />
+ --%><jsp:include page="bootstrapfoot.jsp" />
+	<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+		integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+		crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 
 </body>
 </html>

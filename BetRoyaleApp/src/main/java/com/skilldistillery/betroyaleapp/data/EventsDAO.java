@@ -44,4 +44,6 @@ public interface EventsDAO {
 
 	void getPayoutResultsForEvent(int event_id);
 
+	void updateExpiredEvents();
+
 }

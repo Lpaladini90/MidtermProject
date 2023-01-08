@@ -1,21 +1,12 @@
 package com.skilldistillery.betroyaleapp.controllers;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.betroyaleapp.data.CalculatedWinnings;
 import com.skilldistillery.betroyaleapp.data.EventsDAO;
@@ -26,11 +17,28 @@ import com.skilldistillery.betroyaleapp.entities.Subcategory;
 import com.skilldistillery.betroyaleapp.entities.User;
 import com.skilldistillery.betroyaleapp.entities.Wager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @Controller
+@EnableScheduling
 public class EventsController {
 
 	@Autowired
 	private EventsDAO dao;
+	
+	  @PostConstruct
+	  public void init() {
+		  updateEvents();  // execute the method on start up
+	  }
 	
 	
 	@GetMapping("editEvent.do")
@@ -215,21 +223,18 @@ public class EventsController {
 		mv.addObject("wagers", wagers);
 		mv.addObject("userWagers", userWagers);
 		mv.addObject("comments", comments);
-//		
-//		Map<Integer,Double> payout = new HashMap<>();
-//		for(Wager wager : wagers) {
-//			if(wager.getContender().getEvent().getCompletion()) {
-//				double payout = wager.getBetAmount() * wager.getMultiplier();
-//			}
-//		}
-		
 
-		//mv.setViewName("eventInfoDisplay");
 		mv.setViewName("updatedEventHome");
 		return mv;
 		
 	}
 	
+	
+	  @Scheduled(cron = "0 0 0 * * *")
+	  public void updateEvents() {
+		  dao.updateExpiredEvents();
+	  }
+
 	
 	
 	

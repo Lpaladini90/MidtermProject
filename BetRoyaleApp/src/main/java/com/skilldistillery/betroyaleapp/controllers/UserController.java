@@ -1,12 +1,9 @@
 package com.skilldistillery.betroyaleapp.controllers;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,7 +22,6 @@ import com.skilldistillery.betroyaleapp.data.UserDAO;
 import com.skilldistillery.betroyaleapp.entities.BettableEvent;
 import com.skilldistillery.betroyaleapp.entities.Category;
 import com.skilldistillery.betroyaleapp.entities.Contender;
-import com.skilldistillery.betroyaleapp.entities.EventComment;
 import com.skilldistillery.betroyaleapp.entities.Subcategory;
 import com.skilldistillery.betroyaleapp.entities.User;
 import com.skilldistillery.betroyaleapp.entities.Wager;
@@ -34,30 +29,15 @@ import com.skilldistillery.betroyaleapp.entities.Wager;
 @Controller
 public class UserController {
 
-	
-//	------------------------ DAO -----------------------------------
-	
-	
 	@Autowired
 	private UserDAO userDao;
 
 	@Autowired
-	private EventsDAO eDao;
-
-	
-	
-
-
-	
-	
-//	--------------------------USER CRUD-------------------------------
-
-	
+	private EventsDAO eventDao;
 
 	@RequestMapping(path= "goHome.do")
 	public ModelAndView goHome() {
-	ModelAndView mv = new ModelAndView();
-		
+		ModelAndView mv = new ModelAndView();
 		mv.setViewName("home");
 		return mv;
 	}
@@ -72,25 +52,18 @@ public class UserController {
 		return mv;
 	}
 		
-		
-	
 	@RequestMapping(path ="splash.do")
 	public ModelAndView splash() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("splashPage");
 		return mv;
 	}
-
-	
-	
-	
 	
 	@PostMapping(path = "createUser.do")
 	public ModelAndView home(User user) {
 		User newUser = userDao.createUser(user);
 		ModelAndView mv = new ModelAndView();
-		System.out.println(newUser);
-		mv.addObject("user", user);
+		mv.addObject("user", newUser);
 		mv.setViewName("accounthome");
 		return mv;
 	}
@@ -98,22 +71,11 @@ public class UserController {
 	@PostMapping(path = "updateUser.do")
 	public String updateUser(Model model, User user) {
 		User updatedUser = userDao.updateUser(user);
-		System.out.println(updatedUser);
 		model.addAttribute(updatedUser);
-		System.out.println(updatedUser);
-		// TODO Potentially Changed to "updateUser"
 		return "accounthome";
 	}
-
-	
-	
-	
-	
 	
 //	--------------------------WAGER CRUD-------------------------------
-
-	
-	
 	
 	@PostMapping(path = "createWager.do")
 	public String createWager(int userId, int contenderId, double betAmount, RedirectAttributes redirectAttrs) {
@@ -121,32 +83,28 @@ public class UserController {
 		wager.setBetAmount(betAmount);
 		wager = userDao.createWager(wager, userId, contenderId);
 		redirectAttrs.addAttribute("userId", userId);
-		redirectAttrs.addAttribute("eventId", wager.getContender().getEvent().getId());
+		int eventId = wager.getContender().getEvent().getId();
+		redirectAttrs.addAttribute("eventId", eventId);
 		return "redirect:/loadEventPage.do";
 	}
-	
-	
-	
-	
 
 	@GetMapping("getWagersForEvent.do")
 	public ModelAndView getWagersForEvent(int eventId) {
 		ModelAndView mv = new ModelAndView();
-
 		mv.setViewName("accounthome");
-		return null;
+		return mv;
 	}
 	
 
 	@GetMapping(path = "loadWager.do")
 	public ModelAndView loadWagerPage(int userId, int eventId) {
 		ModelAndView mv = new ModelAndView();
-		Wager wagerView = userDao.findWagerById(userId);
+		Wager wager = userDao.findWagerById(userId);
 		User user = userDao.findById(userId);
-		BettableEvent event = eDao.findEventById(eventId);
+		BettableEvent event = eventDao.findEventById(eventId);
 		mv.addObject("event", event);
 		mv.addObject("user", user);
-		mv.addObject("wager", wagerView);
+		mv.addObject("wager", wager);
 		mv.setViewName("accounthome");
 		return mv;
 	}
@@ -154,12 +112,12 @@ public class UserController {
 	@GetMapping(path = "getWagers.do")
 	public ModelAndView getWager(int userId) {
 		ModelAndView mv = new ModelAndView();
-		User u = userDao.findById(userId);
+		User user = userDao.findById(userId);
 		List<Wager> wagers = userDao.getWagers(userId);
-		List<BettableEvent> events = eDao.displayBettableEvents();
+		List<BettableEvent> events = eventDao.displayBettableEvents();
 		mv.addObject("events", events);
 		mv.addObject("wager", wagers);
-		mv.addObject("user", u);
+		mv.addObject("user", user);
 		mv.setViewName("wagersView");
 		return mv;
 		
@@ -168,39 +126,26 @@ public class UserController {
 	@PostMapping(path = "updateWager.do")
 	public String updateWager(Model model, Wager wager) {
 		Wager updatedWager = userDao.updateWager(wager);
-		System.out.println(updatedWager);
 		model.addAttribute(updatedWager);
-
 		return "accounthome";
 	}
-
-//	public void foo(@RequestParam("number[]") List<String> to) {
-//		for (String number : to) {
-//			System.out.println(number);
-//		}
-//	}
-	
-	
-	
 	
 //	--------------------------BETTING EVENT CRUD-------------------------------
-
-	
-	
-	
-	
+	//TODO: change to command object
 	@RequestMapping(path = "userCreateBetEvent.do", method = RequestMethod.POST)
 	public ModelAndView userCreateBetEvent(BettableEvent event, int userId, String endDate2, String[] contenderName,
-			Double[] contenderOdds, String[] cname, String category, String categorydescription) {
+			Double[] contenderOdds, String[] cname, String categoryString, String categorydescription) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("********");
+		System.out.println(event);
 		if (userId > 0) {
 			String[] data = endDate2.split("-");
 			int year = Integer.parseInt(data[0]);
 			int month = Integer.parseInt(data[1]);
 			int day = Integer.parseInt(data[2]);
-			LocalDateTime LDT = LocalDateTime.of(year, month, day, 0, 0, 0);
+			LocalDateTime eventEndDate = LocalDateTime.of(year, month, day, 0, 0, 0);
 
-			event.setEndDate(LDT);
+			event.setEndDate(eventEndDate);
 			BettableEvent newEvent = userDao.createBettableEvent(event, userId);
 
 			// ---- Link Contenders to categories
@@ -217,31 +162,25 @@ public class UserController {
 				}
 			}
 
-			System.out.println("Point 1");
 
 			// Link Category
-			Category cat = userDao.searchByCategory(category);
-			System.out.println("point 2");
-			if (cat == null || cat.getId() == 0) {
-				System.out.println("inside herre");
-				cat = new Category();
-				cat.setName(category);
-				cat.setDescription(categorydescription);
-				System.out.println(cat);
-				cat = userDao.createCategory(cat);
+			Category category = userDao.searchByCategory(categoryString);
+			if (category == null || category.getId() == 0) {
+				category = new Category();
+				category.setName(categoryString);
+				category.setDescription(categorydescription);
+				category = userDao.createCategory(category);
 			}
-
-			System.out.println("Category: " + cat);
 
 			// ----- link subcategories to -------
 			if (cname.length > 0) {
 				for (int i = 0; i < cname.length; ++i) {
-					Subcategory sub = new Subcategory();
-					sub.setName(cname[i]);
-					sub.setDescription("");
-					sub.setCategory(cat);
-					sub = userDao.createSubCategory(sub);
-					event.addSubcategory(sub);
+					Subcategory subcategory = new Subcategory();
+					subcategory.setName(cname[i]);
+					subcategory.setDescription("");
+					subcategory.setCategory(category);
+					subcategory = userDao.createSubCategory(subcategory);
+					event.addSubcategory(subcategory);
 				}
 			}
 
@@ -280,31 +219,27 @@ public class UserController {
 
 		ModelAndView mv = new ModelAndView();
 		User user = userDao.login(username, password);
-
-		if (user != null) {
-			session.setAttribute("user", user);
-			System.out.println(user);
-			mv.addObject("user", user);
-			List<Wager> wagers = userDao.getWagers(user.getId());		
-			mv.addObject("userWagers",wagers);
-			
-			List<CalculatedWinnings> results = userDao.calculateLeaderBoard();
-			results.forEach(System.out::println);
-			Collections.sort(results,  (r1, r2) ->  (int)r2.getCount() - (int)r1.getCount());
-			int rank = 1;
-			for(CalculatedWinnings cw : results) {
-				cw.setRank(rank);
-				System.out.println(cw.getRank()+ " id: " + cw.getUser().getId() + " " + cw.getCount() + " " + cw.getTotal());
-				++rank;
-				
-			}
-			mv.addObject("rankings", results);
-			
-			mv.setViewName("accounthome");
-		} else {
+		
+		if(user == null) {
 			mv.setViewName("home");
+			return mv;
 		}
-
+		
+		session.setAttribute("user", user);
+		mv.addObject("user", user);
+		List<Wager> wagers = userDao.getWagers(user.getId());		
+		mv.addObject("userWagers",wagers);
+		
+		List<CalculatedWinnings> results = userDao.calculateLeaderBoard();
+		Collections.sort(results,  (r1, r2) ->  (int)r2.getCount() - (int)r1.getCount());
+		
+		for(int rank = 1; rank < results.size(); ++rank) {
+			CalculatedWinnings cw = results.get(rank - 1);
+			cw.setRank(rank);
+		}
+		
+		mv.addObject("rankings", results);
+		mv.setViewName("accounthome");
 		return mv;
 	}
 
@@ -314,40 +249,22 @@ public class UserController {
 		return "redirect:goHome.do";
 	}
 
-	
-	
-	
-//	----------------------- SEARCH -----------------------------------
-	
-	
-	
-	
+//	----------------------- SEARCH -----------------------------------	
 	@GetMapping("search.do")
 	public ModelAndView findByUsername(String username) {
 		ModelAndView mv = new ModelAndView();
 		User newUser = userDao.searchByUsername(username);
 		mv.addObject("username", newUser);
 		mv.setViewName("home");
-
 		return mv;
-
 	}
 
 	@GetMapping("leaderboard.do")
 	public ModelAndView getLeaderboard(int userId) {
-		System.out.println("FIND ME FIX ME");
 		ModelAndView mv = new ModelAndView();
-
 		CalculatedWinnings winnings = userDao.getWinnings(userId);
-		System.out.println(winnings);
 		mv.addObject("winnings", winnings);
 		mv.setViewName("home");
 		return mv;
-
 	}
-
-	
-
 }
-
-//MEOW
